@@ -1,7 +1,22 @@
-### Technical Code Breakdown
-* **Business Goal:** Identifies top revenue-generating (VIP) customers per store location to optimize marketing strategies.
-* **`SELECT` & `CONCAT()`:** Retrieves store/customer IDs and merges `first_name` and `last_name` with space separation into a clean `Customer_Name` alias.
-* **`SUM(p.amount)`:** Calculates the aggregate monetary spending per customer, aliased as `Total_Paid`.
-* **`JOIN`:** Connects the `customer` table with `payment` history on `customer_id` to unify split data sources.
-* **`GROUP BY`:** Aggregates transaction totals categorized by store ID, customer ID, and customer name.
-* **`ORDER BY`:** Sorts records by `store_id` (ASC) and `Total_Paid` (DESC) to highlight highest-spending clients at the top.
+-- ============================================================
+-- Query 1: Top Revenue-Generating Customers per Store
+-- ============================================================
+SELECT 
+    c.store_id AS Store,
+    c.customer_id AS Customer_ID,
+    CONCAT(c.first_name, ' ', c.last_name) AS Customer_Name,
+    SUM(p.amount) AS Total_Paid
+FROM customer c
+JOIN payment p ON c.customer_id = p.customer_id
+GROUP BY c.store_id, c.customer_id, Customer_Name
+ORDER BY c.store_id ASC, Total_Paid DESC;
+### Query 2: Store Performance Analysis by Location
+
+#### Business Goal
+Evaluates overall store profitability and operational volume by geographic location (Country & City) to compare branch effectiveness.
+
+#### Technical Breakdown
+* **`SELECT` & Aggregations:** Retrieves location data alongside `COUNT(r.rental_id)` for volume and `SUM(p.amount)` for financial revenue.
+* **Multi-Table `JOIN`:** Connects 7 relational tables (`store`, `address`, `city`, `country`, `customer`, `rental`, `payment`) to unify geographic metrics with transaction data.
+* **`GROUP BY`:** Aggregates totals by country, city, and store ID.
+* **`ORDER BY`:** Sorts branches by `Total_Revenue` in descending order to showcase top-performing locations.
