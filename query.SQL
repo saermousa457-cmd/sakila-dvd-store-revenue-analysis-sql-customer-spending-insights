@@ -24,3 +24,21 @@ JOIN rental r ON c.customer_id = r.customer_id
 JOIN payment p ON r.rental_id = p.rental_id
 GROUP BY co.country, ci.city, s.store_id
 ORDER BY Total_Revenue DESC;
+
+
+Query 3: Most Profitable Actors Analysis (Revenue & Rentals)
+-
+SELECT 
+    a.actor_id AS Actor_ID,
+    CONCAT(a.first_name, ' ', a.last_name) AS Actor_Name,
+    COUNT(DISTINCT f.film_id) AS Total_Films,
+    COUNT(r.rental_id) AS Times_Rented,
+    SUM(p.amount) AS Total_Revenue
+FROM actor a
+JOIN film_actor fa ON a.actor_id = fa.actor_id
+JOIN film f ON fa.film_id = f.film_id
+JOIN inventory i ON f.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+JOIN payment p ON r.rental_id = p.rental_id
+GROUP BY a.actor_id, Actor_Name
+ORDER BY Total_Revenue DESC;
