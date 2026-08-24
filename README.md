@@ -1,6 +1,6 @@
--- ============================================================
--- Query 1: Top Revenue-Generating Customers per Store
--- ============================================================
+
+### Query 1: Top Revenue-Generating Customers per Store
+
 SELECT 
     c.store_id AS Store,
     c.customer_id AS Customer_ID,
