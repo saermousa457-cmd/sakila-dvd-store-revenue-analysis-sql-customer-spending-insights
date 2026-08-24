@@ -20,3 +20,15 @@ Evaluates overall store profitability and operational volume by geographic locat
 * **Multi-Table `JOIN`:** Connects 7 relational tables (`store`, `address`, `city`, `country`, `customer`, `rental`, `payment`) to unify geographic metrics with transaction data.
 * **`GROUP BY`:** Aggregates totals by country, city, and store ID.
 * **`ORDER BY`:** Sorts branches by `Total_Revenue` in descending order to showcase top-performing locations.
+
+
+-### Query 3: Actor Revenue & Popularity Analysis
+
+#### Business Goal
+Evaluates the commercial value of actors by determining which performers drive the highest customer rentals and revenue.
+
+#### Technical Breakdown
+* **`SELECT` & Aggregations:** Retrieves actor details alongside `COUNT(DISTINCT f.film_id)` for unique movie count, `COUNT(r.rental_id)` for total rental demand, and `SUM(p.amount)` for total revenue generated.
+* **Multi-Table `JOIN`:** Chains 6 relational tables (`actor`, `film_actor`, `film`, `inventory`, `rental`, `payment`) to link cast members directly to payment transactions.
+* **`GROUP BY`:** Aggregates overall performance metrics per actor ID and name.
+* **`ORDER BY`:** Sorts the dataset by `Total_Revenue` in descending order to surface top-grossing actors at the top.
